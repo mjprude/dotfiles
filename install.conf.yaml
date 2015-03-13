@@ -1,4 +1,8 @@
 - clean: []
 - link:
-  ~/.vimrc
+  ~/.dotfiles: ''
+  ~/.vimrc: vimrc
+  ~/.vim: vim/
+  ~/.vimrc.bundles: vimrc.bundles
+  ~/.bash_profile: bash_profile 
 - shell: []
