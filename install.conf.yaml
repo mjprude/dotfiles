@@ -1,8 +1,8 @@
-- clean: []
 - link:
-  ~/.dotfiles: ''
-  ~/.vimrc: vimrc
-  ~/.vim: vim/
-  ~/.vimrc.bundles: vimrc.bundles
-  ~/.bash_profile: bash_profile 
-- shell: []
+    ~/.vimrc: vimrc
+    ~/.vim: vim/
+    ~/.vimrc.bundles: vimrc.bundles
+    ~/.tmux.conf: tmux.conf
+    ~/.bash_profile: bash_profile 
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
