@@ -110,13 +110,7 @@ map <Leader>ct :!ctags -R .<CR>
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
-
-" Get off my lawn
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
-
+"
 " vim-rspec mappings
 nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>s :call RunNearestSpec()<CR>
@@ -124,6 +118,10 @@ nnoremap <Leader>l :call RunLastSpec()<CR>
 
 " Run commands that require an interactive shell
 nnoremap <Leader>r :RunInInteractiveShell<space>
+
+" more comfortable saving and quitting
+nnoremap <Leader>w :w <ENTER>
+nnoremap <Leader>q :q <ENTER>
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -137,6 +135,13 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+
+" Toggle NERDTree with cril - n
+nnoremap <C-n> :NERDTreeToggle<CR>
+
+" Escape without leaving the home row
+imap jk <Esc>
+imap kj <Esc>
 
 " configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
