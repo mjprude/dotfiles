@@ -55,6 +55,7 @@ PATH="/usr/local/bin:/usr/local/sbin:$PATH"                # Homebrew
 PATH="/usr/local/heroku/bin:$PATH"                         # Heroku Toolbelt
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"       # Coreutils
 MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH" # Manual pages
+whoami=`who | awk '{print $1}' | head -1`
 
 # =================
 # Settings
@@ -106,6 +107,11 @@ alias b='cd ..'
 
 # History lists your previously entered commands
 alias h='history'
+
+# mkdir + cd into it
+mcd () {
+  mkdir -p -- "$1" && cd -P -- "$1"
+}
 
 # If we make a change to our bash profile we need to reload it
 alias reload="clear; source ~/.bash_profile"
@@ -182,8 +188,8 @@ server() {
 # ## Might not need?
 # bind 'set completion-ignore-case on'
 # # make completions appear immediately after pressing TAB once
-# bind 'set show-all-if-ambiguous on'
-# bind 'TAB: menu-complete'
+bind 'set show-all-if-ambiguous on'
+bind 'TAB: menu-complete'
 
 # =================
 # Sourced Scripts
@@ -204,9 +210,18 @@ if [ -f ~/.git-completion.bash ]; then
   source ~/.git-completion.bash
 fi
 
+#load user specific aliases
+if [ -f ~/.bash_aliases.$whoami ]; then
+  . ~/.bash_aliases.$whoami
+fi
+
 # ====================================
 # Environmental Variables and API Keys
 # ====================================
+
+if [ -f ~/.bash_secrets.$whoami ]; then
+  . ~/.bash_secrets.$whoami
+fi
 
 # Below here is an area for other commands added by outside programs or
 # commands. Attempt to reserve this area for their use!

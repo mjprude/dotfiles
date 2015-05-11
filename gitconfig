@@ -1,0 +1,45 @@
+[user]
+	name = mjprude
+	email = michaelprude@gmail.com
+[color]
+	ui = always
+[color "branch"]
+	current = green reverse
+	local = green
+	remote = yellow
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = red
+[core]
+	editor = vim
+	excludesfile = /Users/mjprude/.gitignore_global
+[push]
+	default = current
+[alias]
+        s = status -s
+        co = checkout
+        aa = add --all
+        st = status
+        sm = submodule
+        rso = remote show origin
+        pr = !sh -c 'git pull --rebase | [ $(grep \"up to date\" -c) -ne 1 ] && git diff $1@{1}..$1@{0} "$@" --color'
+  # e.g. git graphviz --first-parent master | dotty /dev/stdin
+        graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+  # Pretty log
+        lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  # Print out all commits whose hash starts with a given string
+        abbr = "!sh -c 'git rev-list --all | grep ^$1 | while read commit; do git --no-pager log -n1 --pretty=format:\"%H %ci %an %s%n\" $commit; done' -"
+  # Two little tweaks to diff
+        changes=diff --name-status -r
+        diffstat=diff --stat -r
+        pr = !sh -c 'git pull --rebase | [ $(grep \"up to date\" -c) -ne 1 ] && git diff $1@{1}..$1@{0} "$@" --color'
+        la = "!git config -l | grep alias | cut -c 7-"
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[rerere]
+	enabled = true
