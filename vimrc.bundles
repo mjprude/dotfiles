@@ -32,9 +32,10 @@ Plugin 'vim-scripts/ctags.vim'
 Plugin 'vim-scripts/matchit.zip'
 Plugin 'vim-scripts/tComment'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'nerdtree'
-Plugin 'tpope/vim-unimpaired'            " pairs of handy bracket mappings
-
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-unimpaired'             " pairs of handy bracket mappings
+Plugin 'mustache/vim-mustache-handlebars' " syntax hilighting for handlebars
+Plugin 'mattn/emmet-vim'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local

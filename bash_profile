@@ -52,7 +52,7 @@
 PATH="$HOME/.rbenv/bin:$PATH"                              # RBENV
 PATH="/usr/local/share/npm/bin:$PATH"                      # NPM
 PATH="/usr/local/bin:/usr/local/sbin:$PATH"                # Homebrew
-PATH="/usr/local/heroku/bin:$PATH"                         # Heroku Toolbelt
+# PATH="/usr/local/heroku/bin:$PATH"                         # Heroku Toolbelt
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"       # Coreutils
 MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH" # Manual pages
 whoami=`who | awk '{print $1}' | head -1`
@@ -155,7 +155,7 @@ alias chrome='open -a "Google Chrome"'
 # =================
 
 # start rbenv (our Ruby environment and version manager) on open
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+# if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # =================
 # Functions
@@ -211,18 +211,20 @@ if [ -f ~/.git-completion.bash ]; then
 fi
 
 #load user specific aliases
-if [ -f ~/.bash_aliases.$whoami ]; then
-  . ~/.bash_aliases.$whoami
+if [ -f ~/.bash_aliases.local ]; then
+  . ~/.bash_aliases.local
 fi
 
 # ====================================
 # Environmental Variables and API Keys
 # ====================================
 
-if [ -f ~/.bash_secrets.$whoami ]; then
-  . ~/.bash_secrets.$whoami
+if [ -f ~/.bash_secrets.local ]; then
+  . ~/.bash_secrets.local
 fi
 
 # Below here is an area for other commands added by outside programs or
 # commands. Attempt to reserve this area for their use!
 ##########################################################################
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

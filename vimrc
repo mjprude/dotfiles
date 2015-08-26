@@ -72,7 +72,18 @@ if executable('ag')
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
+
+  " show dotfiles
+  let g:ctrlp_show_hidden = 1
 endif
+
+" Ingore case with lowercase searches
+set ignorecase
+set smartcase
+
+" Keep undo history
+set undofile
+set undodir=~/.vimundo
 
 " Color scheme
 colorscheme molokai
@@ -117,11 +128,15 @@ nnoremap <Leader>s :call RunNearestSpec()<CR>
 nnoremap <Leader>l :call RunLastSpec()<CR>
 
 " Run commands that require an interactive shell
-nnoremap <Leader>r :RunInInteractiveShell<space>
+" nnoremap <Leader>r :RunInInteractiveShell<space>
 
 " more comfortable saving and quitting
 nnoremap <Leader>w :w <ENTER>
 nnoremap <Leader>q :q <ENTER>
+
+" copy and paste with system keyboard
+nnoremap <Leader>c "+y
+nnoremap <Leader>v "+p
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -146,6 +161,9 @@ imap kj <Esc>
 " configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+" use jshint for erb files
+let g:syntastic_eruby_checkers= ['ruby', 'jshint']
+let g:syntastic_eruby_ruby_quiet_messages = {'regex': 'possibly useless use of a variable in void context'}
 
 " Set spellfile to location that is guaranteed to exist, can be symlinked to
 " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
@@ -158,3 +176,9 @@ set diffopt+=vertical
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
+
+" Use system clipboard
+set clipboard=unnamed
+
+" Cop out: allow mouse
+set mouse=a

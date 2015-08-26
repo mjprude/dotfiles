@@ -1,10 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
-let g:netrw_dirhist_1='/Users/mjprude/src/workbench/todo-ember/app/styles'
-let g:netrw_dirhist_2='/Users/mjprude/src/workbench/todo-ember'
-let g:netrw_dirhist_3='/Users/mjprude/src/freelance/datacoup_app'
-let g:netrw_dirhist_4='/Users/mjprude/.vim/bundle/nerdtree/doc'
-let g:netrw_dirhist_5='/Users/mjprude/.vim/bundle/Vundle.vim'
-let g:netrw_dirhist_6='/Users/mjprude/src/freelance/datacoup_app'
-let g:netrw_dirhist_7='/Users/mjprude/src/projects/livetrain_client'
-let g:netrw_dirhist_8='/Users/mjprude/dotfiles_template'
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/Users/mprude/.vagrant-rvm'
+let g:netrw_dirhist_2='/Users/mprude/src/playerservice'
+let g:netrw_dirhist_3='/Users/mprude/.rvm/gems/ruby-2.0.0-p643/gems'
+let g:netrw_dirhist_4='/Users/mprude/src/playerservice'
