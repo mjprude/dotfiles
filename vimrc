@@ -83,7 +83,11 @@ set undofile
 set undodir=~/.vimundo
 
 " Color scheme
-colorscheme molokai
+" set t_Co=256
+set t_ut=
+set background=dark
+colorscheme gruvbox
+
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
