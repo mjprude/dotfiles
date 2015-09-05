@@ -68,11 +68,18 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " Ignore things we don't care about
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+  let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
+
+" see recently opened files (in register)
+nnoremap <leader>p :CtrlPBuffer<enter>
 
 " Ingore case with lowercase searches
 set ignorecase
