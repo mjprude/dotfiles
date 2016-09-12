@@ -12,6 +12,7 @@ cd "${BASEDIR}"
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
 # Install vundle
+git clone git@github.com:VundleVim/Vundle.vim.git
 vim +PluginInstall +qall
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
