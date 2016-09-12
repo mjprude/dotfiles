@@ -13,13 +13,14 @@
 	untracked = red
 [core]
 	editor = vim
-	excludesfile = /Users/mjprude/.gitignore_global
+	excludesfile = /Users/mprude/.gitignore_global
 [push]
 	default = current
 [alias]
         s = status -s
         co = checkout
         aa = add --all
+        l = log --stat --oneline
         st = status
         sm = submodule
         rso = remote show origin
