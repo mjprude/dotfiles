@@ -200,11 +200,6 @@ if [ -f ~/.bash_prompt.sh ]; then
   source ~/.bash_prompt.sh
 fi
 
-# A welcome prompt with stats for sanity checks
-if [ -f ~/.welcome_prompt.sh ]; then
-  source ~/.welcome_prompt.sh
-fi
-
 # bash/zsh completion support for core Git.
 if [ -f ~/.git-completion.bash ]; then
   source ~/.git-completion.bash
@@ -228,3 +223,5 @@ fi
 ##########################################################################
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
