@@ -14,7 +14,7 @@ Plugin 'gmarik/Vundle.vim'
 " Plugin 'bling/vim-airline'
 Plugin 'morhetz/gruvbox'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 " Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive'
 " Plugin 'tpope/vim-rails'
@@ -29,11 +29,14 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'scrooloose/nerdtree'
 " Plugin 'tpope/vim-unimpaired'             " pairs of handy bracket mappings
 " Plugin 'mustache/vim-mustache-handlebars' " syntax hilighting for handlebars
-" Plugin 'mattn/emmet-vim'
+Plugin 'mattn/emmet-vim'
 " Plugin 'skammer/vim-css-color'
 Plugin 'rking/ag.vim'
 Plugin 'heavenshell/vim-jsdoc'
+Plugin 'pangloss/vim-javascript'
 " Plugin 'othree/yajs.vim'
+Plugin 'w0rp/ale' " linting while typing
+Plugin 'fatih/vim-go' " go tooling
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local

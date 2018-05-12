@@ -35,22 +35,18 @@ augroup vimrcEx
     \   exe "normal g`\"" |
     \ endif
 
-  " Set syntax highlighting for specific file types
-  autocmd BufRead,BufNewFile Appraisals set filetype=ruby
-  autocmd BufRead,BufNewFile *.md set filetype=markdown
-
-  " Enable spellchecking for Markdown
-  autocmd FileType markdown setlocal spell
-
-  " Automatically wrap at 80 characters for Markdown
-  autocmd BufRead,BufNewFile *.md setlocal textwidth=80
+  " " Set syntax highlighting for specific file types
+  " autocmd BufRead,BufNewFile *.md set filetype=markdown
+  "
+  " " Enable spellchecking for Markdown
+  " autocmd FileType markdown setlocal spell
+  "
+  " " Automatically wrap at 80 characters for Markdown
+  " autocmd BufRead,BufNewFile *.md setlocal textwidth=80
 
   " Automatically wrap at 72 characters and spell check git commit messages
   autocmd FileType gitcommit setlocal textwidth=72
   autocmd FileType gitcommit setlocal spell
-
-  " Allow stylesheets to autocomplete hyphenated words
-  autocmd FileType css,scss,sass setlocal iskeyword+=-
 augroup END
 
 " Softtabs, 2 spaces
@@ -70,13 +66,32 @@ if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
-  " Ignore things we don't care about
+  " Ignore things we don't care about TODO revisit this)
   set wildignore+=*/tmp/*,*.so,*.swp,*.zip
   let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
+
+" " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+" if executable('ag')
+"   " Use Ag over Grep
+"   set grepprg=ag\ --nogroup\ --nocolor
+"
+"   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+"   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"
+"   " Ignore things we don't care about
+"   set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+"   let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|dist'
+"
+"   " ag is fast enough that CtrlP doesn't need to cache
+"   let g:ctrlp_use_caching = 0
+"
+"   " Ignore files in .gitignore
+"   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+" endif
 
 " see recently opened files (in register)
 nnoremap <leader>p :CtrlPBuffer<enter>
@@ -95,11 +110,11 @@ set t_ut=
 set background=dark
 colorscheme gruvbox
 
-highlight NonText guibg=#060606
-highlight Folded  guibg=#0A0A0A guifg=#9090D0
+" highlight NonText guibg=#060606
+" highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
-" Make it obvious where 80 characters is
-set textwidth=80
+" Make it obvious where 100 characters is
+set textwidth=100
 set colorcolumn=+1
 
 " Numbers
@@ -121,20 +136,12 @@ endfunction
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <S-Tab> <c-n>
 
-" Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
-let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
-
 " Index ctags from any project, including those outside Rails
 map <Leader>ct :!ctags -R .<CR>
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
 "
-" vim-rspec mappings
-nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
-nnoremap <Leader>s :call RunNearestSpec()<CR>
-nnoremap <Leader>l :call RunLastSpec()<CR>
-
 " Run commands that require an interactive shell
 " nnoremap <Leader>r :RunInInteractiveShell<space>
 
@@ -145,6 +152,9 @@ nnoremap <Leader>q :q <ENTER>
 " copy and paste with system keyboard
 nnoremap <Leader>c "+y
 nnoremap <Leader>v "+p
+
+" Redraw the window in case it gets confused
+nnoremap <Leader>r :redraw! <ENTER>
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -161,21 +171,17 @@ nnoremap <C-l> <C-w>l
 
 " Toggle NERDTree with cril - n
 nnoremap <C-n> :NERDTreeToggle<CR>
+" Show hidden files in NerdTree
+let NERDTreeShowHidden=1
 
 " Escape without leaving the home row
 imap jk <Esc>
 imap kj <Esc>
 
-" configure syntastic syntax checking to check on open as well as save
-let g:syntastic_check_on_open=1
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-" use jshint for erb files
-let g:syntastic_eruby_checkers= ['ruby', 'jshint']
-let g:syntastic_eruby_ruby_quiet_messages = {'regex': 'possibly useless use of a variable in void context'}
-
-let g:syntastic_javascript_checkers = ['eslint']
-
 let g:jsdoc_enable_es6=1
+
+" enable JsDoc syntax highlighting via vim-javascript
+let g:javascript_plugin_jsdoc=1
 
 " Set spellfile to location that is guaranteed to exist, can be symlinked to
 " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
@@ -184,13 +190,36 @@ set spellfile=$HOME/.vim-spell-en.utf-8.add
 " Always use vertical diffs
 set diffopt+=vertical
 
-" Local config
-if filereadable($HOME . "/.vimrc.local")
-  source ~/.vimrc.local
-endif
-
 " Use system clipboard
 set clipboard=unnamed
 
 " Cop out: allow mouse
 set mouse=a
+
+" After this is configured, :ALEFix will try and fix your JS code with ESLint.
+let g:ale_fixers = { 'javascript': ['eslint'] }
+
+" Simple re-format for minified Javascript
+command! UnMinify call UnMinify()
+function! UnMinify()
+    %s/{\ze[^\r\n]/{\r/g
+    %s/){/) {/g
+    %s/};\?\ze[^\r\n]/\0\r/g
+    %s/;\ze[^\r\n]/;\r/g
+    %s/[^\s]\zs[=&|]\+\ze[^\s]/ \0 /g
+    normal ggVG=
+endfunction
+
+" MACROS
+let @k='oconsole.log(''%c{0}''.replace(''{0}'', ), ''background-color: black; color: white; font-size: 48px;'')==f)'
+
+" Just :shrug:
+let @s='¯\_(ツ)_/¯'
+
+" Vim-Go configuration
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_types = 1
+let g:go_highlight_function = 1
+let g:go_highlight_methods = 1
+let g:go_fmt_command = "goimports"
+let g:ale_go_govet_lint_package = 1

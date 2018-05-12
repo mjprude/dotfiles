@@ -24,7 +24,6 @@
         st = status
         sm = submodule
         rso = remote show origin
-        pr = !sh -c 'git pull --rebase | [ $(grep \"up to date\" -c) -ne 1 ] && git diff $1@{1}..$1@{0} "$@" --color'
   # e.g. git graphviz --first-parent master | dotty /dev/stdin
         graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
   # Pretty log
@@ -34,7 +33,6 @@
   # Two little tweaks to diff
         changes=diff --name-status -r
         diffstat=diff --stat -r
-        pr = !sh -c 'git pull --rebase | [ $(grep \"up to date\" -c) -ne 1 ] && git diff $1@{1}..$1@{0} "$@" --color'
         la = "!git config -l | grep alias | cut -c 7-"
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
@@ -44,3 +42,8 @@
 	trustExitCode = true
 [rerere]
 	enabled = true
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
