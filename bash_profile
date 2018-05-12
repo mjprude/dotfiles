@@ -51,10 +51,14 @@
 
 PATH="$HOME/.rbenv/bin:$PATH"                              # RBENV
 PATH="/usr/local/share/npm/bin:$PATH"                      # NPM
+PATH="/usr/local/share/dotnet:$PATH"                       # dotnet
 PATH="/usr/local/bin:/usr/local/sbin:$PATH"                # Homebrew
-# PATH="/usr/local/heroku/bin:$PATH"                         # Heroku Toolbelt
+# PATH="/usr/local/heroku/bin:$PATH"                       # Heroku Toolbelt
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"       # Coreutils
 MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH" # Manual pages
+export GOPATH="$HOME/src/go"                               # Go
+export GOROOT="/usr/local/go"
+PATH="$PATH:$GOROOT/bin:$GOPATH/bin"                       # Go Binaries
 whoami=`who | awk '{print $1}' | head -1`
 
 # =================
@@ -114,12 +118,12 @@ mcd () {
 }
 
 # If we make a change to our bash profile we need to reload it
-alias reload="clear; source ~/.bash_profile"
+alias reload="clear; source ~/.bash_profile && nvm use"
 
 # confirm before executing and be verbose
 alias cp='cp -iv'
 alias mv='mv -iv'
-alias rm='rm -iv'
+# alias rm='rm -iv'
 alias mkdir='mkdir -pv'
 
 # =================
@@ -140,6 +144,13 @@ alias show_files="defaults write com.apple.finder AppleShowAllFiles TRUE && kill
 # http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
 alias rogue='lsof -i TCP:3000 -i TCP:4567 -i TCP:8000 -i TCP:8888 -i TCP:6379'
 
+
+type hub >/dev/null 2>&1 && alias git=hub
+
+# Opens github
+if [ -f ~/.gh.sh ]; then
+  alias gh='~/.gh.sh'
+fi
 
 # ================
 # Application Aliases
@@ -210,6 +221,10 @@ if [ -f ~/.bash_aliases.local ]; then
   . ~/.bash_aliases.local
 fi
 
+if [ -f /usr/local/bin/fuck ]; then
+  eval $(thefuck --alias)
+fi
+
 # ====================================
 # Environmental Variables and API Keys
 # ====================================
@@ -222,6 +237,7 @@ fi
 # commands. Attempt to reserve this area for their use!
 ##########################################################################
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
