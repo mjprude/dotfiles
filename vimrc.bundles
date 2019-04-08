@@ -34,9 +34,12 @@ Plugin 'mattn/emmet-vim'
 Plugin 'rking/ag.vim'
 Plugin 'heavenshell/vim-jsdoc'
 Plugin 'pangloss/vim-javascript'
+Plugin 'ngmy/vim-rubocop'
 " Plugin 'othree/yajs.vim'
 Plugin 'w0rp/ale' " linting while typing
 Plugin 'fatih/vim-go' " go tooling
+Plugin 'mdempsky/gocode', {'rtp': 'vim/'} " golang autopcompletion
+Plugin 'thoughtbot/vim-rspec' " Rspec runner
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local

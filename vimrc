@@ -35,14 +35,14 @@ augroup vimrcEx
     \   exe "normal g`\"" |
     \ endif
 
-  " " Set syntax highlighting for specific file types
-  " autocmd BufRead,BufNewFile *.md set filetype=markdown
-  "
-  " " Enable spellchecking for Markdown
-  " autocmd FileType markdown setlocal spell
-  "
-  " " Automatically wrap at 80 characters for Markdown
-  " autocmd BufRead,BufNewFile *.md setlocal textwidth=80
+  " Set syntax highlighting for specific file types
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+
+  " Enable spellchecking for Markdown
+  autocmd FileType markdown setlocal spell
+
+  " Automatically wrap at 80 characters for Markdown
+  autocmd BufRead,BufNewFile *.md setlocal textwidth=80
 
   " Automatically wrap at 72 characters and spell check git commit messages
   autocmd FileType gitcommit setlocal textwidth=72
@@ -68,10 +68,13 @@ if executable('ag')
 
   " Ignore things we don't care about TODO revisit this)
   set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-  let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+  let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|build\|dist'
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
+
+  " Ignore files in .gitignore
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 endif
 
 " " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
@@ -95,6 +98,8 @@ endif
 
 " see recently opened files (in register)
 nnoremap <leader>p :CtrlPBuffer<enter>
+
+nnoremap <leader>* :Ag <cword> *<enter>
 
 " Ingore case with lowercase searches
 set ignorecase
@@ -156,6 +161,10 @@ nnoremap <Leader>v "+p
 " Redraw the window in case it gets confused
 nnoremap <Leader>r :redraw! <ENTER>
 
+" Run Tests
+autocmd FileType go nnoremap <Leader>t :GoTest <enter>
+autocmd FileType ruby nnoremap <Leader>t :call RunNearestSpec()<CR>
+
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
@@ -176,7 +185,6 @@ let NERDTreeShowHidden=1
 
 " Escape without leaving the home row
 imap jk <Esc>
-imap kj <Esc>
 
 let g:jsdoc_enable_es6=1
 
@@ -214,7 +222,7 @@ endfunction
 let @k='oconsole.log(''%c{0}''.replace(''{0}'', ), ''background-color: black; color: white; font-size: 48px;'')==f)'
 
 " Just :shrug:
-let @s='¯\_(ツ)_/¯'
+let @s='o¯\_(ツ)_/¯==f)'
 
 " Vim-Go configuration
 let g:go_highlight_build_constraints = 1
@@ -222,4 +230,5 @@ let g:go_highlight_types = 1
 let g:go_highlight_function = 1
 let g:go_highlight_methods = 1
 let g:go_fmt_command = "goimports"
-let g:ale_go_govet_lint_package = 1
+" let g:ale_go_govet_lint_package = 1
+let g:ale_linters = {'go': ['gometalinter', 'gofmt']}
