@@ -49,7 +49,6 @@
 # A list of all directories in which to look for commands, scripts and programs
 # -----------------------------------------------------------------------------
 
-PATH="$HOME/.rbenv/bin:$PATH"                              # RBENV
 PATH="/usr/local/share/npm/bin:$PATH"                      # NPM
 PATH="/usr/local/share/dotnet:$PATH"                       # dotnet
 PATH="/usr/local/bin:/usr/local/sbin:$PATH"                # Homebrew
@@ -241,3 +240,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+export PATH="$PATH:$HOME/.rvm/bin"
