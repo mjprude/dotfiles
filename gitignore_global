@@ -71,6 +71,7 @@ node_modules
 /public/system/*
 /tmp/*
 /vendor/bundle
+.notes
 
 
 # Ruby #
@@ -81,10 +82,8 @@ node_modules
 .config
 .yardoc
 _yardoc
-doc/
 InstalledFiles
 lib/bundler/man
-pkg
 rdoc
 tmp
 .env
