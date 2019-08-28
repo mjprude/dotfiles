@@ -21,6 +21,7 @@
         co = checkout
         aa = add --all
         l = log --stat --oneline
+        ls = log --graph --decorate --pretty=oneline --abbrev-commit 
         st = status
         sm = submodule
         rso = remote show origin
