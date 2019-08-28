@@ -1,3 +1,6 @@
+use AppleScript version "2.4"
+use scripting additions
+
 tell application "Spotify"
   if it is running then
     if player state is playing then
