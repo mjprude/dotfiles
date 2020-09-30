@@ -3,10 +3,12 @@ use scripting additions
 
 tell application "Spotify"
   if it is running then
+    set separator to " ॥ "
     if player state is playing then
-      set track_name to name of current track
-      set artist_name to artist of current track
-      "♫ " & track_name & " - " & artist_name
+      set separator to " ♫ "
     end if
+    set track_name to name of current track
+    set artist_name to artist of current track
+     track_name & separator & artist_name
   end if
 end tell
