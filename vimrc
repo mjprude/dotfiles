@@ -205,7 +205,8 @@ set clipboard=unnamed
 set mouse=a
 
 " After this is configured, :ALEFix will try and fix your JS code with ESLint.
-let g:ale_fixers = { 'javascript': ['eslint'] }
+let g:ale_fixers = { 'javascript': ['prettier'] }
+" let g:ale_fixers = { 'javascript': ['prettier', 'eslint'] }
 
 " Simple re-format for minified Javascript
 command! UnMinify call UnMinify()
@@ -223,6 +224,9 @@ let @k='oconsole.log(''%c{0}''.replace(''{0}'', ), ''background-color: black; co
 
 " Just :shrug:
 let @s='o¯\_(ツ)_/¯==f)'
+
+" Match Ruby do/end, etc
+runtime macros/matchit.vim
 
 " Vim-Go configuration
 let g:go_highlight_build_constraints = 1
